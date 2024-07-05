@@ -24,7 +24,13 @@ class m240705_064448_contact extends Migration
             'body' => $this->text()->notNull(),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')->append('ON UPDATE CURRENT_TIMESTAMP'),
-        ]);
+        ], $tableOptions);
+        $this->createIndex(
+            'idx-contact-email',
+            '{{%contact}}',
+            'email',
+            false 
+        );
     }
 
     /**
