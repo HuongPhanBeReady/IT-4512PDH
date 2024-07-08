@@ -1,6 +1,4 @@
 <?php
-
-<<<<<<< HEAD
 require __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Dotenv\Dotenv;
@@ -20,18 +18,3 @@ return $db = [
     'password' => $password,
     'charset' => 'utf8',
 ];
-
-=======
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=contact',
-    'username' => 'root',
-    'password' => '',
-    'charset' => 'utf8',
-
-    // Schema cache options (for production environment)
-    //'enableSchemaCache' => true,
-    //'schemaCacheDuration' => 60,
-    //'schemaCache' => 'cache',
-];
->>>>>>> a9e4bfccef306d502a2d23e3c8f4234a33b5c0c7

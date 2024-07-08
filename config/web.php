@@ -42,23 +42,13 @@ $config = [
             ],
         ],
         'db' => $db,
-<<<<<<< HEAD
-=======
-        /*
->>>>>>> a9e4bfccef306d502a2d23e3c8f4234a33b5c0c7
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-<<<<<<< HEAD
                 'lien-he.html' => 'site/contact',
             ],
         ],
-=======
-            ],
-        ],
-        */
->>>>>>> a9e4bfccef306d502a2d23e3c8f4234a33b5c0c7
     ],
     'params' => $params,
 ];
