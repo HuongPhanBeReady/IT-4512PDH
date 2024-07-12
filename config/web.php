@@ -61,6 +61,7 @@ $config = [
                 'lien-he.html' => 'site/contact',
             ],
         ],
+
     ],
     'params' => $params,
 ];
