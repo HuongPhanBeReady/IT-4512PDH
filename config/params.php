@@ -3,5 +3,5 @@
 return [
     'adminEmail' => 'admin@example.com',
     'senderEmail' => 'huong.phan@beready.academy',
-    'senderName' => 'Phan Diem Huong',
+    'senderName' => 'Phan Huong',
 ];

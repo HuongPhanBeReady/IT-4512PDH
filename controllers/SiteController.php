@@ -121,7 +121,6 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-     // Action gửi email
     public function sendEmail($model)
     {
         try {
