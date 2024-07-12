@@ -121,16 +121,15 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-      // Action gửi email
      // Action gửi email
     public function sendEmail($model)
     {
         try {
             $result = Yii::$app->mailer->compose('home-link', ['model' => $model])
-                ->setFrom( Yii::$app->params['senderEmail']) // Địa chỉ người gửi
-                ->setTo($model->email) // Địa chỉ người nhận từ form
-                ->setSubject($model->subject) // Tiêu đề email
-                ->send(); // Gửi emails
+                ->setFrom( Yii::$app->params['senderEmail']) 
+                ->setTo($model->email) 
+                ->setSubject($model->subject) 
+                ->send(); 
 
             if ($result) {
                 Yii::$app->session->setFlash('success', 'Email đã được gửi thành công!');
