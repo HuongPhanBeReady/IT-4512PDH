@@ -109,21 +109,40 @@ class SiteController extends Controller
         $model = new ContactForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->saveContact()) {
+            // Gửi email sau khi lưu thành công
+            $this->sendEmail($model);
+
             Yii::$app->session->setFlash('contactFormSubmitted');
 
             return $this->refresh();
         }
+
         return $this->render('contact', [
             'model' => $model,
         ]);
     }
+      // Action gửi email
+     // Action gửi email
+    public function sendEmail($model)
+    {
+        try {
+            $result = Yii::$app->mailer->compose('home-link', ['model' => $model])
+                ->setFrom( Yii::$app->params['senderEmail']) // Địa chỉ người gửi
+                ->setTo($model->email) // Địa chỉ người nhận từ form
+                ->setSubject($model->subject) // Tiêu đề email
+                ->send(); // Gửi emails
 
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
+            if ($result) {
+                Yii::$app->session->setFlash('success', 'Email đã được gửi thành công!');
+            } else {
+                Yii::$app->session->setFlash('error', 'Không thể gửi email.');
+            }
+        } catch (\Exception $e) {
+            Yii::error('Lỗi khi gửi email: ' . $e->getMessage());
+            Yii::$app->session->setFlash('error', 'Lỗi khi gửi email: ' . $e->getMessage());
+        }
+    }
+      
     public function actionAbout()
     {
         return $this->render('about');
@@ -147,5 +166,6 @@ class SiteController extends Controller
             return $this->render('entry', ['model' => $model]);
         }
     }
+    
     
 }

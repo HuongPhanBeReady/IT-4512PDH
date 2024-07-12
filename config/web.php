@@ -2,7 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
-
+require __DIR__ . '/../vendor/autoload.php'; // Đường dẫn tới file autoload.php của Composer
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
@@ -29,9 +29,21 @@ $config = [
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
             'viewPath' => '@app/mail',
-            // send all mails to a file by default.
-            'useFileTransport' => true,
+            'transport' => [
+                'scheme' => 'smtp',
+                'host' => 'smtp.gmail.com', // Địa chỉ SMTP của công ty
+                'username' => $_ENV['SMTP_USERNAME'], 
+                'password' => $_ENV['SMTP_PASSWORD'],
+                'port' => '465', // Cổng SMTP
+                'streamOptions' => [
+                    'ssl' => [
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                    ],
+                ],
+            ],
         ],
+
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

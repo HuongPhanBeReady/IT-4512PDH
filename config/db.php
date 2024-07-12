@@ -1,10 +1,4 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
-
-use Symfony\Component\Dotenv\Dotenv;
-
-$dotenv = new Dotenv();
-$dotenv->load(__DIR__.'/../.env');
 
 $host = $_ENV['MYSQL_HOST'];
 $dbname = $_ENV['MYSQL_DATABASE'];
