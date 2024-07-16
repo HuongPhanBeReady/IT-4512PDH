@@ -61,6 +61,13 @@ $config = [
                 'lien-he.html' => 'site/contact',
             ],
         ],
+        // 'queue' => [
+        //     'class' => \yii\::class,
+        //     'db' => 'db', // DB connection component or its config 
+        //     'tableName' => '{{%queue}}', // Table name
+        //     'channel' => 'default', // Queue channel key
+        //     'mutex' => \yii\mutex\MysqlMutex::class, // Mutex used to sync queries
+        // ],
 
     ],
     'params' => $params,
