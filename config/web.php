@@ -2,7 +2,6 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
-require __DIR__ . '/../vendor/autoload.php'; // Đường dẫn tới file autoload.php của Composer
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
