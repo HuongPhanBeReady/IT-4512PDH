@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "start": "npx tailwindcss -i ./web/css/index.css -o ./web/css/tailwind.css --watch",
+    "dev": "npx tailwindcss -i ./web/css/index.css -o ./web/css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.4"
+  },
+  "dependencies": {
+    "alpinejs": "^3.14.1"
+  }
+}
