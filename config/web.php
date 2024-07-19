@@ -48,7 +48,11 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error', 'warning', 'info'],
+                    'categories' => ['yii\queue*'], // Thêm dòng này để log các thông tin liên quan đến queue
+                    'logFile' => '@runtime/logs/app.log',
+                    'maxFileSize' => 1024 * 2, // 2 MB
+                    'maxLogFiles' => 5,
                 ],
             ],
         ],
@@ -61,11 +65,11 @@ $config = [
             ],
         ],
         'queue' => [
-            'class' => 'yii\queue\db\Queue',
+            'class' => \yii\queue\db\Queue::class,
             'db' => 'db', 
             'tableName' => '{{%queue}}',
             'channel' => 'default', 
-            'mutex' => '\yii\mutex\MysqlMutex',
+            'mutex' => \yii\mutex\MysqlMutex::class,
         ],
     ],
     'params' => $params,

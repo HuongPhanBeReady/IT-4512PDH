@@ -47,8 +47,7 @@ class ContactForm extends Model
      * Sends an email to the specified email address using the information collected by this model.
      * @param string $email the target email address
      * @return bool whether the model passes validation
-     */
-    public function saveContact()
+     */ public function saveContact()
     {
         if ($this->validate()) {
             $contact = new Contact();
@@ -64,7 +63,6 @@ class ContactForm extends Model
                     'subject' => $this->subject,
                     'body' => $this->body,
                 ]));
-    
                 return true;
             }
         }

@@ -15,12 +15,12 @@ class SendEmailJob extends BaseObject implements JobInterface
     public function execute($queue)
     {
         try {
-            $email = Yii::$app->mailer->compose()
+            $result = Yii::$app->mailer->compose()
+                ->setFrom( Yii::$app->params['senderEmail']) 
                 ->setTo($this->email)
                 ->setSubject($this->subject)
-                ->setTextBody($this->body); // hoặc sử dụng ->setHtmlBody để gửi email HTML
-
-            $result = $email->send();
+                ->setTextBody($this->body)
+                ->send();
 
             if ($result) {
                 Yii::info('Email đã được gửi thành công!', __METHOD__);

@@ -6,7 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log','queue'],
     'controllerNamespace' => 'app\commands',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -25,6 +25,23 @@ $config = [
                 ],
             ],
         ],
+        'mailer' => [
+            'class' => \yii\symfonymailer\Mailer::class,
+            'viewPath' => '@app/mail',
+            'transport' => [
+                'scheme' => 'smtp',
+                'host' => 'smtp.gmail.com', // Địa chỉ SMTP của công ty
+                'username' => $_ENV['SMTP_USERNAME'], 
+                'password' => $_ENV['SMTP_PASSWORD'],
+                'port' => 465, 
+                'streamOptions' => [
+                    'ssl' => [
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                    ],
+                ],
+            ],
+        ],
         'db' => $db,
         'queue' => [
             'class' => \yii\queue\db\Queue::class,
@@ -37,13 +54,12 @@ $config = [
     'params' => $params,
     'controllerMap' => [
         'migrate' => [
-        'class' => 'yii\console\controllers\MigrateController',
-        'migrationPath' => null,
-        'migrationNamespaces' => [
-            // ...
-            'yii\queue\db\migrations',
+            'class' => 'yii\console\controllers\MigrateController',
+            'migrationPath' => null,
+            'migrationNamespaces' => [
+                'yii\queue\db\migrations',
+            ],
         ],
-    ],
     ],
 ];
 
@@ -53,8 +69,8 @@ if (YII_ENV_DEV) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
     ];
+
     // configuration adjustments for 'dev' environment
-    // requires version `2.1.21` of yii2-debug module
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',

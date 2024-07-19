@@ -106,26 +106,19 @@ class SiteController extends Controller
      * @return Response|string
      */
     public function actionContact()
-{
-    $model = new ContactForm();
+    {
+        $model = new ContactForm();
+    
+        if ($model->load(Yii::$app->request->post()) && $model->saveContact()) {
 
-    if ($model->load(Yii::$app->request->post()) && $model->saveContact()) {
-        // Đẩy job vào hàng đợi thay vì gửi email trực tiếp
-        Yii::$app->queue->push(new SendEmailJob([
-            'email' => $model->email,
-            'subject' => $model->subject,
-            'body' => $model->body,
-        ]));
-
-        Yii::$app->session->setFlash('contactFormSubmitted');
-
-        return $this->refresh();
+            Yii::$app->session->setFlash('contactFormSubmitted');
+            return $this->refresh();
+        }
+    
+        return $this->render('contact', [
+            'model' => $model,
+        ]);
     }
-
-    return $this->render('contact', [
-        'model' => $model,
-    ]);
-}
     
     public function sendEmail($model)
     {
@@ -136,7 +129,7 @@ class SiteController extends Controller
                 ->setSubject($model->subject) 
                 ->send(); 
 
-            if ($result) {
+            if ($result) {                    
                 Yii::$app->session->setFlash('success', 'Email đã được gửi thành công!');
             } else {
                 Yii::$app->session->setFlash('error', 'Không thể gửi email.');
