@@ -26,15 +26,25 @@ $config = [
             ],
         ],
         'db' => $db,
-    ],
-    'params' => $params,
-    /*
-    'controllerMap' => [
-        'fixture' => [ // Fixture generation command line.
-            'class' => 'yii\faker\FixtureController',
+        'queue' => [
+            'class' => \yii\queue\db\Queue::class,
+            'db' => 'db', // Database connection component
+            'tableName' => '{{%queue}}', // Table name
+            'channel' => 'default', // Queue channel key
+            'mutex' => \yii\mutex\MysqlMutex::class, // Mutex used to sync queries
         ],
     ],
-    */
+    'params' => $params,
+    'controllerMap' => [
+        'migrate' => [
+        'class' => 'yii\console\controllers\MigrateController',
+        'migrationPath' => null,
+        'migrationNamespaces' => [
+            // ...
+            'yii\queue\db\migrations',
+        ],
+    ],
+    ],
 ];
 
 if (YII_ENV_DEV) {

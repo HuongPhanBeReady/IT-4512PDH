@@ -33,7 +33,7 @@ $config = [
                 'host' => 'smtp.gmail.com', // Địa chỉ SMTP của công ty
                 'username' => $_ENV['SMTP_USERNAME'], 
                 'password' => $_ENV['SMTP_PASSWORD'],
-                'port' => '465', 
+                'port' => 465, 
                 'streamOptions' => [
                     'ssl' => [
                         'verify_peer' => false,
@@ -60,14 +60,13 @@ $config = [
                 'lien-he.html' => 'site/contact',
             ],
         ],
-        // 'queue' => [
-        //     'class' => \yii\::class,
-        //     'db' => 'db', // DB connection component or its config 
-        //     'tableName' => '{{%queue}}', // Table name
-        //     'channel' => 'default', // Queue channel key
-        //     'mutex' => \yii\mutex\MysqlMutex::class, // Mutex used to sync queries
-        // ],
-
+        'queue' => [
+            'class' => 'yii\queue\db\Queue',
+            'db' => 'db', 
+            'tableName' => '{{%queue}}',
+            'channel' => 'default', 
+            'mutex' => '\yii\mutex\MysqlMutex',
+        ],
     ],
     'params' => $params,
 ];

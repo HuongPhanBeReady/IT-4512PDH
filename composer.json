@@ -17,7 +17,9 @@
         "php": ">=7.4.0",
         "yiisoft/yii2": "~2.0.45",
         "yiisoft/yii2-bootstrap5": "~2.0.2",
-        "sylvainp/yii2-symfonymailer": "~3.0.0"
+        "yiisoft/yii2-queue": "^2.3",
+        "yiisoft/yii2-symfonymailer": "^4.0",
+        "symfony/dotenv": "^6.4"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -69,10 +71,6 @@
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/sylvainp/yii2-symfonymailer"
         }
     ]
 }

@@ -4,13 +4,14 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use app\jobs\SendEmailJob;
+
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\EntryForm;
-
 class SiteController extends Controller
 {
     /**
@@ -105,22 +106,27 @@ class SiteController extends Controller
      * @return Response|string
      */
     public function actionContact()
-    {
-        $model = new ContactForm();
+{
+    $model = new ContactForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->saveContact()) {
-            // Gửi email sau khi lưu thành công
-            $this->sendEmail($model);
+    if ($model->load(Yii::$app->request->post()) && $model->saveContact()) {
+        // Đẩy job vào hàng đợi thay vì gửi email trực tiếp
+        Yii::$app->queue->push(new SendEmailJob([
+            'email' => $model->email,
+            'subject' => $model->subject,
+            'body' => $model->body,
+        ]));
 
-            Yii::$app->session->setFlash('contactFormSubmitted');
+        Yii::$app->session->setFlash('contactFormSubmitted');
 
-            return $this->refresh();
-        }
-
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
+        return $this->refresh();
     }
+
+    return $this->render('contact', [
+        'model' => $model,
+    ]);
+}
+    
     public function sendEmail($model)
     {
         try {
