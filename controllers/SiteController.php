@@ -119,27 +119,6 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-    
-    public function sendEmail($model)
-    {
-        try {
-            $result = Yii::$app->mailer->compose('home-link', ['model' => $model])
-                ->setFrom( Yii::$app->params['senderEmail']) 
-                ->setTo($model->email) 
-                ->setSubject($model->subject) 
-                ->send(); 
-
-            if ($result) {                    
-                Yii::$app->session->setFlash('success', 'Email đã được gửi thành công!');
-            } else {
-                Yii::$app->session->setFlash('error', 'Không thể gửi email.');
-            }
-        } catch (\Exception $e) {
-            Yii::error('Lỗi khi gửi email: ' . $e->getMessage());
-            Yii::$app->session->setFlash('error', 'Lỗi khi gửi email: ' . $e->getMessage());
-        }
-    }
-      
     public function actionAbout()
     {
         return $this->render('about');

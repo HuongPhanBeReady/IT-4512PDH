@@ -21,7 +21,12 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'enabled' => true,
+                    'categories' => ['api', 'cron', 'yii\queue\Queue', 'queue', 'collection', 'firewall'],
+                    'levels' => ['error', 'warning', 'trace'],
+                    'enableRotation' => true,
+                    'logFile' => '@runtime/logs/app.log',
+                    'logVars' => [],
                 ],
             ],
         ],
@@ -49,6 +54,8 @@ $config = [
             'tableName' => '{{%queue}}', // Table name
             'channel' => 'default', // Queue channel key
             'mutex' => \yii\mutex\MysqlMutex::class, // Mutex used to sync queries
+            'ttr' => 3600, // Thời gian job có thể chạy
+            'attempts' => 5, // Số lần thử lại
         ],
     ],
     'params' => $params,
